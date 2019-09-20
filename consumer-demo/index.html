@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>
+            Kafka Demo
+        </title>
+    </head>
+    <body>
+        <script>
+            window.addEventListener("load", function(evt) {
+                var ws;
+                var print = function(message) {
+                    var d = document.createElement("div");
+                    d.innerHTML = message;
+                    output.appendChild(d);
+                };
+                ws = new WebSocket("{{.}}");
+                ws.onopen = function(evt) {
+                    print("OPEN");
+                }
+                ws.onclose = function(evt) {
+                    print("CLOSE");
+                    ws = null;
+                }
+                ws.onmessage = function(evt) {
+                    print("RESPONSE: " + evt.data);
+                }
+                ws.onerror = function(evt) {
+                    print("ERROR: " + evt.data);
+                }
+            });
+        </script>
+    </body>
+</html>
